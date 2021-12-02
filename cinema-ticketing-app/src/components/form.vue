@@ -23,7 +23,7 @@
     </span>
   </div>
   <div class="">
-    <input type="button" name="" value="Price">
+    <input type="button" name="" value="Price" @click="sumOfTickets()">
   </div>
   <br>
   <hr>
@@ -47,6 +47,7 @@ export default {
       totalTickets: 0,
       selected: '2D',
       selectedPrice: 0,
+      discount: 0,
       totalPrice: 0,
     }
   },
@@ -70,15 +71,17 @@ export default {
     sumOfTickets() {
       var temp = 0;
 
-      var std = 7.9
-      var con = 5.4
+      var std = 7.9;
+      var con = 5.4;
 
-      var threeD = .9
-      var iMax = 1.5
+      var threeD = .9;
+      // var iMax = 1.5;
 
-      var breakdown = document.getElementById('breakdown')
+      var breakdown = document.getElementById('breakdown');
 
-      breakdown.style.display = "block"
+      var discounts = discounts();
+
+      breakdown.style.display = "block";
 
       if(this.selected === "3D") {
         temp = threeD;
@@ -87,8 +90,18 @@ export default {
         this.concessionPrice = (this.concession * con).toFixed(2);
         this.totalTickets = (this.standard + this.concession);
         this.selectedPrice = (this.totalTickets * temp);
+        this.totalPrice = (std * this.standard) + (con * this.concession) + (temp * this.totalTickets);
 
       }
+    },
+    discounts() {
+      var discount = 0;
+      for(let i = 0; i < (this.standard + this.concession); i++) {
+        if(i%3 === 0) {
+          discount++
+        }
+      }
+      return discount
     }
 
   }
