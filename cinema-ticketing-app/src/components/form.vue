@@ -27,9 +27,10 @@
   </div>
   <br>
   <hr>
-  <div class="">
+  <div class="breakdown">
     <input type="text" name="" :value="`${totalPrice}`" disabled>
   </div>
+  <hr>
 </template>
 
 <script type="text/javascript">
@@ -43,10 +44,10 @@ export default {
       standardPrice: 0,
       concession: 0,
       concessionPrice: 0,
+      totalTickets: 0,
       selected: '2D',
       selectedPrice: 0,
       totalPrice: 0,
-      totalTickets: 0
     }
   },
   methods: {
@@ -66,11 +67,41 @@ export default {
         this.concession--
       }
     },
+    sumOfTickets() {
+      var temp = 0;
 
-    
+      var std = 7.9
+      var con = 5.4
+
+      var threeD = .9
+      var iMax = 1.5
+
+      var breakdown = document.getElementById('breakdown')
+
+      breakdown.style.display = "block"
+
+      if(this.selected === "3D") {
+        temp = threeD;
+
+        this.standardPrice = (this.standard * std).toFixed(2);
+        this.concessionPrice = (this.concession * con).toFixed(2);
+        this.totalTickets = (this.standard + this.concession);
+        this.selectedPrice = (this.totalTickets * temp);
+
+      }
+    }
 
   }
 
 }
 
 </script>
+
+<style scoped media="screen">
+
+.breakdown {
+  display: none;
+}
+
+
+</style>
