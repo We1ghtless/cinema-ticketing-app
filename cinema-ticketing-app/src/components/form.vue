@@ -27,7 +27,7 @@
   </div>
   <br>
   <hr>
-  <div class="breakdown">
+  <div id="breakdown" class="breakdown">
     <input type="text" name="" :value="`${totalPrice}`" disabled>
   </div>
   <hr>
@@ -79,38 +79,40 @@ export default {
 
       var breakdown = document.getElementById('breakdown');
 
-      var discounts = discounts();
+      var stdDiscounts = 0;
+      var conDiscounts = 0;
+
+      for(let i = 0; i < (this.standard); i++) {
+        if(i%3 === 0) {
+          stdDiscounts++
+        }
+      }
+
+      for(let i = 0; i < (this.standard); i++) {
+        if(i%3 === 0) {
+          conDiscounts++
+        }
+      }
 
       breakdown.style.display = "block";
 
       if(this.selected === "3D") {
         temp = threeD;
 
-        this.standardPrice = (this.standard * std).toFixed(2);
+        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std).toFixed(2));
         this.concessionPrice = (this.concession * con).toFixed(2);
         this.totalTickets = (this.standard + this.concession);
         this.selectedPrice = (this.totalTickets * temp);
-        this.totalPrice = (std * this.standard) + (con * this.concession) + (temp * this.totalTickets);
+        this.totalPrice = (this.standardPrice + this.concessionPrice + this.selectedPrice)
 
       }
-    },
-    discounts() {
-      var discount = 0;
-      for(let i = 0; i < (this.standard + this.concession); i++) {
-        if(i%3 === 0) {
-          discount++
-        }
-      }
-      return discount
     }
-
   }
-
 }
 
 </script>
 
-<style scoped media="screen">
+<style scoped>
 
 .breakdown {
   display: none;
