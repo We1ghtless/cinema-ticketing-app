@@ -75,35 +75,66 @@ export default {
       var con = 5.4;
 
       var threeD = .9;
-      // var iMax = 1.5;
+      var iMax = 1.5;
 
       var breakdown = document.getElementById('breakdown');
 
       var stdDiscounts = 0;
       var conDiscounts = 0;
 
-      for(let i = 0; i < (this.standard); i++) {
-        if(i%3 === 0) {
-          stdDiscounts++
+      var date = new Date()
+      var day = date.getDay()
+
+      if (day === 4) {
+        for(let i = 1; i <= (this.standard); i++) {
+          if(i%3 === 0) {
+            stdDiscounts++
+          }
         }
+
+        for(let i = 1; i <= (this.concession); i++) {
+          if(i%3 === 0) {
+            conDiscounts++
+          }
+        }
+
       }
 
-      for(let i = 0; i < (this.standard); i++) {
-        if(i%3 === 0) {
-          conDiscounts++
-        }
-      }
+
+
+
 
       breakdown.style.display = "block";
 
       if(this.selected === "3D") {
         temp = threeD;
 
-        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std).toFixed(2));
-        this.concessionPrice = (this.concession * con).toFixed(2);
+        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std);
+        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con);
         this.totalTickets = (this.standard + this.concession);
         this.selectedPrice = (this.totalTickets * temp);
-        this.totalPrice = (this.standardPrice + this.concessionPrice + this.selectedPrice)
+        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con);
+        this.totalPrice = ((this.standardPrice + this.concessionPrice) + this.selectedPrice).toFixed(2);
+
+      }else if(this.selected === "iMax") {
+        temp = iMax;
+
+        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std);
+        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con);
+        this.totalTickets = (this.standard + this.concession);
+        this.selectedPrice = (this.totalTickets * temp);
+        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con);
+        this.totalPrice = ((this.standardPrice + this.concessionPrice) + this.selectedPrice).toFixed(2);
+
+      } else {
+        temp = 0;
+
+        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std);
+        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con);
+        this.totalTickets = (this.standard + this.concession);
+        this.selectedPrice = (this.totalTickets * temp);
+        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con);
+        this.totalPrice = ((this.standardPrice + this.concessionPrice) + this.selectedPrice).toFixed(2);
 
       }
     }
