@@ -1,21 +1,21 @@
 <template id="">
   <div class="">
     <span>
-      <input type="button" name="" value="-" @click="minusStandard()" class="counter-button">
-      <input type="text" name="" :value="`${standard}`">
-      <input type="button" name="" value="-" @click="plusStandard()" class="counter-button">
+      <input type="button" name="" value="-" @click="minusStandard(), hide()" class="counter-button">
+      <input type="text" name="" :value="`${standard}`"  @click="hide()" class="value">
+      <input type="button" name="" value="-" @click="plusStandard(), hide()" class="counter-button">
     </span>
   </div>
   <div class="">
     <span>
-      <input type="button" name="" value="-" @click="minusConcession()" class="counter-button">
-      <input type="text" name="" :value="`${concession}`">
-      <input type="button" name="" value="-" @click="plusConcession()" class="counter-button">
+      <input type="button" name="" value="-" @click="minusConcession(), hide()" class="counter-button">
+      <input type="text" name="" :value="`${concession}`"  @click="hide()" class="value">
+      <input type="button" name="" value="-" @click="plusConcession(), hide()" class="counter-button">
     </span>
   </div>
   <div class="">
     <span>
-      <select class="" name="" v-model="selected">
+      <select class="" name="" v-model="selected"  @click="hide()">
         <option value="2D">2D</option>
         <option value="3D">3D</option>
         <option value="iMax">iMax</option>
@@ -23,12 +23,16 @@
     </span>
   </div>
   <div class="">
-    <input type="button" name="" value="Price" @click="sumOfTickets()">
+    <input type="button" name="" class="price" value="Price" @click="sumOfTickets()">
   </div>
   <br>
   <hr>
   <div id="breakdown" class="breakdown">
-    <input type="text" name="" :value="`${totalPrice}`" disabled>
+    <input type="text" name="" :value="`Total Standard: £${standardPrice}`" id="std" disabled>
+    <input type="text" name="" :value="`Total concessions: £${concessionPrice}`" id="con" disabled>
+    <input type="text" name="" :value="`Total additions: £${selectedPrice}`" id="adds" disabled>
+    <input type="text" name="" class="discounts" :value="`Discounts applied: -£${discount}`" id="dis" disabled>
+    <input type="text" name="" :value="`Total cost: £${totalPrice}`" disabled>
   </div>
   <hr>
 </template>
@@ -98,32 +102,31 @@ export default {
           }
         }
 
+      } else {
+        var w = document.getElementById("dis");
+        w.style.display = "none";
       }
-
-
-
-
 
       breakdown.style.display = "block";
 
       if(this.selected === "3D") {
         temp = threeD;
 
-        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std);
-        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con);
-        this.totalTickets = (this.standard + this.concession);
-        this.selectedPrice = (this.totalTickets * temp);
-        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con);
+        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std).toFixed(2);
+        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con).toFixed(2);
+        this.totalTickets = (this.standard + this.concession).toFixed(2);
+        this.selectedPrice = (this.totalTickets * temp).toFixed(2);
+        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con).toFixed(2);
         this.totalPrice = ((this.standardPrice + this.concessionPrice) + this.selectedPrice).toFixed(2);
 
       }else if(this.selected === "iMax") {
         temp = iMax;
 
-        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std);
-        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con);
-        this.totalTickets = (this.standard + this.concession);
-        this.selectedPrice = (this.totalTickets * temp);
-        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con);
+        this.standardPrice = ((this.standard - (stdDiscounts*2)) * std).toFixed(2);
+        this.concessionPrice = ((this.concession - (conDiscounts*2)) * con).toFixed(2);
+        this.totalTickets = (this.standard + this.concession).toFixed(2);
+        this.selectedPrice = (this.totalTickets * temp).toFixed(2);
+        this.discount = ((stdDiscounts*2) * std) + ((conDiscounts*2) * con).toFixed(2);
         this.totalPrice = ((this.standardPrice + this.concessionPrice) + this.selectedPrice).toFixed(2);
 
       } else {
@@ -137,6 +140,10 @@ export default {
         this.totalPrice = ((this.standardPrice + this.concessionPrice) + this.selectedPrice).toFixed(2);
 
       }
+    },
+    hide() {
+      var a = document.getElementById('breakdown');
+      a.style.display = "none";
     }
   }
 }
@@ -145,8 +152,43 @@ export default {
 
 <style scoped>
 
+.counter-button {
+  border: none;
+  background-color: lightblue;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+
+.value {
+  width: 30px;
+  height: 30px;
+}
+
+input {
+  border: none;
+  text-align: center;
+}
+
+select {
+  border: none;
+  font-size: 1em;
+}
+
+.price {
+  margin: 10px;
+  background-color: lightblue;
+  font-size: 1em;
+  padding: 10px;
+  width: 100px;
+}
+
 .breakdown {
   display: none;
+}
+
+.discounts {
+  color: green;
 }
 
 
