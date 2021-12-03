@@ -39,3 +39,9 @@ aspects. It won’t count against you, we’re aware that varying circumstances 
 time for recruitment exercises tricky.
 
 # SOLUTION
+
+Solution has been built using Vue.js boiler plate.
+
+The majority of the working has been done in the /form.vue file.
+
+A functioning version of the front-end can be seen working at: https://cinema-tickets.netlify.app/
