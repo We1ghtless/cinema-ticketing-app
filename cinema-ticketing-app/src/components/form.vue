@@ -1,5 +1,7 @@
 <template id="">
   <div class="">
+    <label for="">Standard</label>
+    <br>
     <span>
       <input type="button" name="" value="-" @click="minusStandard(), hide()" class="counter-button">
       <input type="text" name="" :value="`${standard}`"  @click="hide()" class="value">
@@ -7,6 +9,8 @@
     </span>
   </div>
   <div class="">
+    <label for="">Concession</label>
+    <br>
     <span>
       <input type="button" name="" value="-" @click="minusConcession(), hide()" class="counter-button">
       <input type="text" name="" :value="`${concession}`"  @click="hide()" class="value">
